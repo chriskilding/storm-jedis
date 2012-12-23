@@ -4,7 +4,6 @@
 
 package storm.jedis;
 
-
 import java.util.List;
 import java.util.Map;
 import redis.clients.jedis.Jedis;
@@ -18,35 +17,46 @@ import backtype.storm.utils.Utils;
 
 /**
  * A spout to interface with a Redis server.
+ * 
  * Adapted from the https://github.com/sorenmacbeth/storm-redis-pubsub project.
+ * 
+ * Due to the way Storm polls spouts at regular intervals for data, instead of getting data off them via events, it is more
+ * efficient to use Redis as a FIFO queue; the source will push data onto the queue, and each time nextTuple() is called, this class
+ * will pop the next item to be processed off the queue.
  * 
  * @author Christopher Kilding
  * @date 28/11/2012
  */
 public class RedisQueueSpout extends BaseRichSpout {
-      
-  static final long serialVersionUID = 737015318988609460L;
-  
+
+  static final long            serialVersionUID = 737015318988609460L;
+
   private SpoutOutputCollector _collector;
 
-  private final String host;
-  private final int port;
-  private final String pattern;
-  
-  /** Jedis instance. Transient as you DON'T want to store it. */
+  /** The host on which Redis is located. */
+  private final String         host;
+
+  /** The port at which Redis may be found. */
+  private final int            port;
+
+  /** The "pattern" i.e. root key below which all messages are stored. */
+  private final String         pattern;
+
+  /** JedisQueue instance. Transient as its inner Jedis member cannot be serialized. */
   private transient JedisQueue jq;
-  
+
   public RedisQueueSpout(String host, int port, String pattern) {
     this.host = host;
     this.port = port;
-    this.pattern = pattern;    
+    this.pattern = pattern;
   }
-  
+
+  @SuppressWarnings("rawtypes")
   public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
     _collector = collector;
     Jedis newJedis = new Jedis(host, port);
     newJedis.connect();
-    this.jq = new JedisQueue(newJedis, pattern);     
+    this.jq = new JedisQueue(newJedis, pattern);
   }
 
   public void close() {
@@ -54,13 +64,14 @@ public class RedisQueueSpout extends BaseRichSpout {
 
   public void nextTuple() {
     List<String> ret = this.jq.dequeue();
-        if(ret==null) {
-            Utils.sleep(5L);
-        } else {
-            System.out.println(ret);
+    if (ret == null) {
+      Utils.sleep(5L);
+    }
+    else {
+      System.out.println(ret);
 
-            _collector.emit(new Values(ret));            
-        }
+      _collector.emit(new Values(ret));
+    }
   }
 
   @Override
@@ -75,6 +86,14 @@ public class RedisQueueSpout extends BaseRichSpout {
 
   }
 
+  /**
+   * This spout simply returns one thing: a message. Due to the nature of the key-value store, this will be a List<String> of
+   * the latest thing that was stored underneath this.pattern.
+   * 
+   * @param declarer
+   * 
+   * @see backtype.storm.topology.IComponent#declareOutputFields(backtype.storm.topology.OutputFieldsDeclarer)
+   */
   public void declareOutputFields(OutputFieldsDeclarer declarer) {
     declarer.declare(new Fields("message"));
   }
