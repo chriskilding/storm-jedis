@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>storm-jedis</groupId>
   <artifactId>storm-jedis</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <name>storm-jedis</name>
   <description>Plug your Storm topology into Redis using the Jedis library.</description>
   <repositories>
@@ -36,8 +36,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
         <configuration>
-          <source/>
-          <target/>
+          <source />
+          <target />
         </configuration>
       </plugin>
       <plugin>
