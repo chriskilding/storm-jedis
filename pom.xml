@@ -42,4 +42,9 @@
       </plugin>
     </plugins>
   </build>
+  <scm>
+  	<url>https://github.com/themasterchef/storm-jedis</url>
+  	<connection>scm:git:ssh://github.com/themasterchef/storm-jedis.git</connection>
+  	<developerConnection>scm:git:ssh://git@github.com/themasterchef/storm-jedis.git</developerConnection>
+  </scm>
 </project>
