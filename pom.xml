@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>storm-jedis</groupId>
   <artifactId>storm-jedis</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>storm-jedis</name>
   <description>Plug your Storm topology into Redis using the Jedis library.</description>
   <repositories>
