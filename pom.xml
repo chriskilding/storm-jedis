@@ -40,6 +40,14 @@
           <target/>
         </configuration>
       </plugin>
+      <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-release-plugin</artifactId>
+	    <configuration>
+	       <!--  Let me do the push so it doesn't break on a git error -->
+	      <pushChanges>false</pushChanges>
+	    </configuration>
+	</plugin>
     </plugins>
   </build>
   <scm>
