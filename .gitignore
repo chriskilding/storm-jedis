@@ -32,3 +32,6 @@ local.properties
 *.jar
 *.war
 *.ear
+pom.xml.releaseBackup
+release.properties
+target/maven-archiver/pom.properties
