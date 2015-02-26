@@ -3,8 +3,8 @@ language: java
 sudo: false
 
 jdk:
-  - openjdk7
-  - oraclejdk7
+  - openjdk8
+  - oraclejdk8
 
 deploy:
   provider: releases
