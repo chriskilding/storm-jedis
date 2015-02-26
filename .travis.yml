@@ -2,10 +2,15 @@ language: java
 
 sudo: false
 
+##
+# OpenJDK 8 is not available (yet).
 jdk:
-  - openjdk8
+  - openjdk7
+  - oraclejdk7
   - oraclejdk8
 
+##
+# When a release is tagged, push to GitHub Releases.
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN 
