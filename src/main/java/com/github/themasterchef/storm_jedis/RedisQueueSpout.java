@@ -2,7 +2,7 @@
  * RedisPubSubSpout.java
  */
 
-package storm.jedis;
+package com.github.themasterchef.storm_jedis;
 
 import java.util.List;
 import java.util.Map;

@@ -2,7 +2,7 @@
  * JedisQueue.java
  */
 
-package storm.jedis;
+package com.github.themasterchef.storm_jedis;
 
 import java.util.List;
 import redis.clients.jedis.Jedis;

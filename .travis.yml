@@ -5,3 +5,11 @@ sudo: false
 jdk:
   - openjdk7
   - oraclejdk7
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN 
+  file: ./build/libs/storm-jedis.jar
+  skip_cleanup: true
+  on:
+    tags: true

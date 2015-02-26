@@ -35,3 +35,9 @@ local.properties
 pom.xml.releaseBackup
 release.properties
 target/maven-archiver/pom.properties
+
+# Gradle bits
+.gradle
+build
+
+.DS_Store

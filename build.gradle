@@ -1,0 +1,15 @@
+group = "com.github.themasterchef"
+
+apply plugin: "java"
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://clojars.org/repo"
+    }
+}
+
+dependencies {
+    compile group: 'storm', name: 'storm', version: '0.8.1'
+    compile group: 'redis.clients', name: 'jedis', version: '2.1.0'
+}
