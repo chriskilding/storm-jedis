@@ -68,8 +68,6 @@ public class RedisQueueSpout extends BaseRichSpout {
       Utils.sleep(5L);
     }
     else {
-      System.out.println(ret);
-
       _collector.emit(new Values(ret));
     }
   }
